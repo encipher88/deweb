@@ -1,5 +1,15 @@
 #!/bin/bash
-sudo apt update && sudo apt install curl -y 
+# wget -q -O deweb.sh https://github.com/encipher88/deweb/blob/main/deweb.sh && chmod +x deweb.sh && sudo /bin/bash deweb.sh
+
+exists()
+{
+  command -v "$1" >/dev/null 2>&1
+}
+if exists curl; then
+	echo ''
+else
+sudo apt update && sudo apt install curl -y < "/dev/null"
+fi
 bash_profile=$HOME/.bash_profile
 if [ -f "$bash_profile" ]; then
     . $HOME/.bash_profile
