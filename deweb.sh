@@ -116,6 +116,8 @@ sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001udws\"/' $H
 sudo ufw allow 26656
 
 dewebd start
+sleep 5
+^c
 
 echo -e '\n\e[42mRunning\e[0m\n' && sleep 1
 echo -e '\n\e[42mCreating a service\e[0m\n' && sleep 1
