@@ -1,18 +1,13 @@
 #!/bin/bash
 # wget -q -O deweb.sh https://github.com/encipher88/deweb/blob/main/deweb.sh && chmod +x deweb.sh && sudo /bin/bash deweb.sh
 
-exists()
-{
-  command -v "$1" >/dev/null 2>&1
-}
-if exists curl; then
-	echo ''
-else
+
 cd $HOME
 sudo apt update && sudo apt upgrade –y
-sudo apt install make curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git ncdu gcc git jq chrony liblz4-tool –y  < "/dev/null"
-fi
+sudo apt install make curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git ncdu gcc git jq chrony liblz4-tool –y 
+
 bash_profile=$HOME/.bash_profile
+
 if [ -f "$bash_profile" ]; then
     . $HOME/.bash_profile
 fi
