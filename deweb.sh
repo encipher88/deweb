@@ -79,6 +79,8 @@ dewebd init $DEWEB_NODENAME --chain-id deweb-testnet-1
 cd $HOME
 curl -s https://raw.githubusercontent.com/deweb-services/deweb/main/genesis.json > ~/.deweb/config/genesis.json 
 
+dewebd unsafe-reset-all
+
 rm "/root/.deweb/config/addrbook.json"
 curl -s https://raw.githubusercontent.com/encipher88/deweb/main/addrbook.json > ~/.deweb/config/addrbook.json
 
