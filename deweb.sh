@@ -38,7 +38,7 @@ if [[ ! $DEWEB_NODENAME ]]; then
 
 cd $HOME
 sudo apt update && sudo apt upgrade –y
-sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool –y < "/dev/null"
+sudo apt install make curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git ncdu gcc git jq chrony liblz4-tool –y < "/dev/null"
 
 echo -e '\n\e[42mInstall Go\e[0m\n' && sleep 1
 cd $HOME
