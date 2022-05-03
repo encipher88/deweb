@@ -1,5 +1,5 @@
 #!/bin/bash
-# wget -q -O deweb.sh https://github.com/encipher88/deweb/blob/main/deweb.sh && chmod +x deweb.sh && sudo /bin/bash deweb.sh
+# wget -q -O deweb.sh https://raw.githubusercontent.com/encipher88/deweb/main/deweb.sh && chmod +x deweb.sh && sudo /bin/bash deweb.sh
 
 
 cd $HOME
