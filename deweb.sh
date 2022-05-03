@@ -29,7 +29,7 @@ if [[ ! $DEWEB_NODENAME ]]; then
 #		read -p "Enter wallet password: " DEWEB_PASSWORD
 #		echo 'export DEWEB_PASSWORD='${DEWEB_PASSWORD} >> $HOME/.bash_profile
 #	fi
-	echo -e '\n\e[45mYour wallet password:' $DEWEB_PASSWORD '\e[0m\n'
+#	echo -e '\n\e[45mYour wallet password:' $DEWEB_PASSWORD '\e[0m\n'
 	. $HOME/.bash_profile
 	sleep 1
 
