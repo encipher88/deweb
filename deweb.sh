@@ -106,14 +106,16 @@ WantedBy=multi-user.target
 sudo mv dewebd.service /etc/systemd/system/
 sudo systemctl enable dewebd.service
 sudo systemctl restart dewebd.service
-journalctl -u dewebd -f -o cat
+
 
 
 echo -e '\n\e[42mCheck node status\e[0m\n' && sleep 1
 
 if [[ `service dewebd status | grep active` =~ "running" ]]; then
   echo -e "Your DEWEB node \e[32minstalled and works\e[39m!"
-  echo -e "Press \e[7mQ\e[0m for exit from status menu"
+  
 else
   echo -e "Your deweb node \e[31mwas not installed correctly\e[39m, please reinstall."
 fi
+echo -e "FOR CHECK STATUS INPUT=   journalctl -u dewebd -f -o cat"
+
