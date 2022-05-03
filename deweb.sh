@@ -42,13 +42,21 @@ sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bs
 
 echo -e '\n\e[42mInstall Go\e[0m\n' && sleep 1
 cd $HOME
-wget -O go1.18.1.linux-amd64.tar.gz https://golang.org/dl/go1.18.1.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz && rm go1.18.1.linux-amd64.tar.gz
-echo 'export GOROOT=/usr/local/go' >> $HOME/.bash_profile
-echo 'export GOPATH=$HOME/go' >> $HOME/.bash_profile
-echo 'export GO111MODULE=on' >> $HOME/.bash_profile
-echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile && . $HOME/.bash_profile
+
+sudo rm -rf /usr/local/go
+
+curl https://dl.google.com/go/go1.17.6.linux-amd64.tar.gz | sudo tar -C/usr/local -zxvf -
+cat <<'EOF' >>$HOME/.profile
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export GOBIN=$HOME/go/bin
+export PATH=$PATH:/usr/local/go/bin:$GOBIN
+EOF
+source $HOME/.profile
+
 go version
+
 
 
 echo -e '\n\e[42mInstall software\e[0m\n' && sleep 1
