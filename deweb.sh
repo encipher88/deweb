@@ -8,7 +8,9 @@ exists()
 if exists curl; then
 	echo ''
 else
-sudo apt update && sudo apt install curl -y < "/dev/null"
+cd $HOME
+sudo apt update && sudo apt upgrade –y
+sudo apt install make curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git ncdu gcc git jq chrony liblz4-tool –y  < "/dev/null"
 fi
 bash_profile=$HOME/.bash_profile
 if [ -f "$bash_profile" ]; then
@@ -36,9 +38,7 @@ if [[ ! $DEWEB_NODENAME ]]; then
 	sleep 1
 
 
-cd $HOME
-sudo apt update && sudo apt upgrade –y
-sudo apt install make curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git ncdu gcc git jq chrony liblz4-tool –y < "/dev/null"
+
 
 echo -e '\n\e[42mInstall Go\e[0m\n' && sleep 1
 cd $HOME
