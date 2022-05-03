@@ -4,6 +4,7 @@
 
 cd $HOME
 sudo apt update && sudo apt upgrade –y
+sleep 30
 sudo apt install make curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git ncdu gcc git jq chrony liblz4-tool –y 
 
 bash_profile=$HOME/.bash_profile
