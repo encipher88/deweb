@@ -88,56 +88,29 @@ sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001udws\"/' $H
 
 sudo ufw allow 26656
 
-cd $HOME/deweb
-echo -e "\n\e[45mWait some time before creating key...\e[0m\n"
-sleep 20
-sudo tee <<EOF >/dev/null $HOME/deweb/DEWEB_add_key.sh
-#!/usr/bin/expect -f
-EOF
-echo "set timeout -1
-spawn $HOME/deweb/stchaincli keys add $DEWEB_WALLET --home $HOME/deweb
-match_max 100000
-expect -exact \"Enter keyring passphrase:\"
-send -- \"$DEWEB_PASSWORD\r\"
-expect -exact \"\r
-Re-enter keyring passphrase:\"
-send -- \"$DEWEB_PASSWORD\r\"
-expect eof" >> $HOME/deweb/DEWEB_add_key.sh
-sudo chmod +x $HOME/deweb/DEWEB_add_key.sh
-$HOME/deweb/DEWEB_add_key.sh &>> $HOME/deweb/$DEWEB_WALLET.txt
-echo -e "You can find your mnemonic by the following command:"
-echo -e "\e[32mcat $HOME/DEWEB/$DEWEB_WALLET.txt\e[39m"
-export DEWEB_WALLET_ADDRESS=`cat $HOME/DEWEB/$DEWEB_WALLET.txt | grep address | awk '{split($0,addr," "); print addr[2]}' | sed 's/.$//'`
-echo 'export DEWEB_WALLET_ADDRESS='${DEWEB_WALLET_ADDRESS} >> $HOME/.bash_profile
-. $HOME/.bash_profile
-echo -e '\n\e[45mYour wallet address:' $DEWEB_WALLET_ADDRESS '\e[0m\n'
-
 echo -e '\n\e[42mRunning\e[0m\n' && sleep 1
 echo -e '\n\e[42mCreating a service\e[0m\n' && sleep 1
 
+echo "[Unit]
+Description=DWS Node
+After=network-online.target
+[Service]
+User=${USER}
+ExecStart=$(which dewebd) start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+[Install]
+WantedBy=multi-user.target
+" > dewebd.service
+sudo mv dewebd.service /etc/systemd/system/
+sudo systemctl enable dewebd.service
+sudo systemctl restart dewebd.service
+journalctl -u dewebd -f -o cat
 
-cd $HOME
-    echo "[Unit]
-    Description=DWS Node
-    After=network-online.target
-    [Service]
-    User=${USER}
-    ExecStart=$(which dewebd) start
-    Restart=always
-    RestartSec=3
-    LimitNOFILE=4096
-    [Install]
-    WantedBy=multi-user.target
-    " >dewebd.services 
-    sudo mv dewebd.service /lib/systemd/system/
-    sudo systemctl enable dewebd.service && sudo systemctl start dewebd.service
 
-sudo systemctl restart systemd-journald
-sudo systemctl daemon-reload
-echo -e '\n\e[42mRunning a service\e[0m\n' && sleep 1
-sudo systemctl enable dewebd
-sudo systemctl restart dewebd
 echo -e '\n\e[42mCheck node status\e[0m\n' && sleep 1
+
 if [[ `service dewebd status | grep active` =~ "running" ]]; then
   echo -e "Your DEWEB node \e[32minstalled and works\e[39m!"
   echo -e "Press \e[7mQ\e[0m for exit from status menu"
